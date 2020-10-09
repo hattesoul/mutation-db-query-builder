@@ -1,0 +1,69 @@
+/* dark mode */
+
+.checkbox:hover, .radio:hover {
+	color: #aaaaaa;
+}
+
+a:hover {
+	color: #4c82da;
+}
+
+/* placeholder */
+.input::-moz-placeholder, .textarea::-moz-placeholder, .select select::-moz-placeholder {
+  color: rgba(199, 199, 199, 0.9);
+}
+
+.input::-webkit-input-placeholder, .textarea::-webkit-input-placeholder, .select select::-webkit-input-placeholder {
+  color: rgba(199, 199, 199, 0.9);
+}
+
+.input:-moz-placeholder, .textarea:-moz-placeholder, .select select:-moz-placeholder {
+  color: rgba(199, 199, 199, 0.9);
+}
+
+.input:-ms-input-placeholder, .textarea:-ms-input-placeholder, .select select:-ms-input-placeholder {
+  color: rgba(199, 199, 199, 0.9);
+}
+
+.input[disabled]::-moz-placeholder, .textarea[disabled]::-moz-placeholder, .select select[disabled]::-moz-placeholder,
+fieldset[disabled] .input::-moz-placeholder,
+fieldset[disabled] .textarea::-moz-placeholder,
+fieldset[disabled] .select select::-moz-placeholder,
+.select fieldset[disabled] select::-moz-placeholder {
+  color: rgba(199, 199, 199, 0.9);
+}
+
+.input[disabled]::-webkit-input-placeholder, .textarea[disabled]::-webkit-input-placeholder, .select select[disabled]::-webkit-input-placeholder,
+fieldset[disabled] .input::-webkit-input-placeholder,
+fieldset[disabled] .textarea::-webkit-input-placeholder,
+fieldset[disabled] .select select::-webkit-input-placeholder,
+.select fieldset[disabled] select::-webkit-input-placeholder {
+  color: rgba(199, 199, 199, 0.9);
+}
+
+.input[disabled]:-moz-placeholder, .textarea[disabled]:-moz-placeholder, .select select[disabled]:-moz-placeholder,
+fieldset[disabled] .input:-moz-placeholder,
+fieldset[disabled] .textarea:-moz-placeholder,
+fieldset[disabled] .select select:-moz-placeholder,
+.select fieldset[disabled] select:-moz-placeholder {
+  color: rgba(199, 199, 199, 0.9);
+}
+
+.input[disabled]:-ms-input-placeholder, .textarea[disabled]:-ms-input-placeholder, .select select[disabled]:-ms-input-placeholder,
+fieldset[disabled] .input:-ms-input-placeholder,
+fieldset[disabled] .textarea:-ms-input-placeholder,
+fieldset[disabled] .select select:-ms-input-placeholder,
+.select fieldset[disabled] select:-ms-input-placeholder {
+  color: rgba(199, 199, 199, 0.9);
+}
+
+/* align icon with checkboxes */
+.margin-top-3 {
+    margin-top: 3px;
+}
+
+/* is really 24x24 */
+.is-24x24- {
+    height: 24px;
+    /* width: 24px; */
+}

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutation DB query builder</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"
+        integrity="sha512-YSdqvJoZr83hj76AIVdOcvLWYMWzy6sJyIMic2aQz5kh2bPTd9dzY3NtdeEAzPp/PhgZqr4aJObB3ym/vsItMg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script defer src="assets/js/query.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+    <section class="hero is-info">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Mutation DB query builder
+                </h1>
+                <p class="subtitle">
+                    This form builds single DB queries for different online mutation databases
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section has-background-dark has-text-grey-lighter">
+        <div class="columns">
+            <div class="column is-four-fifths">
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label has-text-grey-lighter">Gene symbol</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input id="gene" class="input is-info has-background-dark has-text-grey-lighter" type="text" placeholder="Gene symbol">
+                            </div>
+                            <div class="help">
+                                <span class="is-italic">e. g.</span> PIK3CA, BRCA1, or BRCA2
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label has-text-grey-lighter">Mutation</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field has-addons">
+                            <div class="control">
+                                <div class="button is-static">
+                                    Protein
+                                </div>
+                            </div>
+                            <div class="control">
+                                <input id="protein-3" class="input is-info has-background-dark has-text-grey-lighter" type="text"
+                                    placeholder="Mutation">
+                                <div class="help">
+                                    3-letter code: <span class="is-italic">e.g.</span> p.Glu542Lys
+                                </div>
+                            </div>
+                            <div class="control">
+                                <input id="protein-1" class="input is-info has-background-dark has-text-grey-lighter" type="text"
+                                    placeholder="Mutation">
+                                <div class="help">
+                                    1-letter code: <span class="is-italic">e.g.</span> p.E542K
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                    </div>
+                    <div class="field-body">
+                        <div class="field has-addons">
+                            <div class="control">
+                                <div class="button is-static">
+                                    DNA
+                                </div>
+                            </div>
+                            <div class="control">
+                                <input id="dna" class="input is-info has-background-dark has-text-grey-lighter" type="text"
+                                    placeholder="Mutation">
+                                <div class="help">
+                                    <span class="is-italic">e.g.</span> c.1624G>A
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label has-text-grey-lighter">Databases</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <button id="select" class="button is-success is-small">
+                                    Select all
+                                </button>
+                                <button id="deselect" class="button is-danger is-small">
+                                    Deselect all
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label has-text-grey-lighter">
+                            <img class="is-24x24-" src="assets/images/db_logo_ClinVar_light_margin.png">
+                        </label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="ClinVar" checked>
+                                    ClinVar (<a href="https://www.ncbi.nlm.nih.gov/clinvar/" target="_blank">homepage</a>)
+                                    <span class="query"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label has-text-grey-lighter">
+                            <img class="is-24x24-" src="assets/images/db_logo_COSMIC_light_margin.png">
+                        </label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="COSMIC" checked>
+                                    COSMIC (<a href="https://cancer.sanger.ac.uk/cosmic" target="_blank">homepage</a>)
+                                    <span class="query"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label has-text-grey-lighter">
+                            <img class="is-24x24-" src="assets/images/db_logo_CIViC_light_margin.png">
+                        </label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="CIViC" checked>
+                                    CIViC (<a href="https://civicdb.org/home" target="_blank">homepage</a>)
+                                    <span class="query"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label has-text-grey-lighter">
+                            <img class="is-24x24-" src="assets/images/db_logo_VarSome_light.png">
+                        </label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="VarSome" checked>
+                                    VarSome (<a href="https://varsome.com/" target="_blank">homepage</a>)
+                                    <span class="query"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label has-text-grey-lighter">
+                            <img class="is-24x24-" src="assets/images/db_logo_dbSNP_light_margin.png">
+                        </label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="dbSNP" checked>
+                                    dbSNP (<a href="https://www.ncbi.nlm.nih.gov/snp/" target="_blank">homepage</a>)
+                                    <span class="query"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label has-text-grey-lighter">
+                            <img class="is-24x24-" src="assets/images/db_logo_OncoKB_light_margin.png">
+                        </label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="OncoKB" checked>
+                                    OncoKB (<a href="https://www.oncokb.org/" target="_blank">homepage</a>)
+                                    <span class="query"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <!-- Left empty for spacing -->
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <button id="build" class="button is-info">
+                                    Build queries
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer has-background-grey-dark has-text-grey-lighter">
+        <div class="content has-text-centered">
+            <div class="columns">
+                <div class="column is-one-fifths">
+                </div>
+                <div class="column is-one-fifths">
+                    <div class="media">
+                        <div class="media-left">
+                            📍
+                        </div>
+                        <div class="media-content">
+                            <div class="content has-text-left">
+                                <p >
+                                    Philipps-Universität Marburg <br>
+                                    Universitätsklinikum Gießen und Marburg GmbH <br>
+                                    Prof. Dr. Carsten Denkert <br>
+                                    Institute of Pathology<br>
+                                    Molecular Pathology<br>
+                                    Baldingerstraße<br>
+                                    35043 Marburg
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-fifths">
+                    <div class="media">
+                        <div class="media-left">
+                            🎓 <br>
+                            <!-- 👨‍💻 --> <br>
+                            🚪 <br>
+                            📞 <br>
+                            📠 <br>
+                            📬 <br>
+                            💻
+                        </div>
+                        <div class="media-content">
+                            <div class="content has-text-left">
+                                <p>
+                                    Dr. Akira Hattesohl <br>
+                                    Bioinformatician <br>
+                                    -3/43370<br>
+                                    +49 6421 58-67338 <br>
+                                    +49 6421 58-62257 <br>
+                                    akira.hattesohl@uni-marburg.de <br>
+                                    https://www.uni-marburg.de/fb20/allgpathol
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-fifths">
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
