@@ -56,21 +56,22 @@
                     </div>
                     <div class="field-body">
                         <div class="field has-addons">
-                            <div class="control">
+                            <div class="control tooltip">
                                 <div class="button is-static">
                                     Protein
                                 </div>
+                                <span class="tooltiptext">Either enter a mutation in 3-letter or 1-letter protein code notation. The other is generated automatically.</span>
                             </div>
                             <div class="control">
                                 <input id="protein-3" class="input is-info has-background-dark has-text-grey-lighter" type="text"
-                                    placeholder="Mutation">
+                                    placeholder="Mutation (3-letter code)">
                                 <div class="help">
                                     3-letter code: <span class="is-italic">e.g.</span> p.Glu542Lys
                                 </div>
                             </div>
                             <div class="control">
                                 <input id="protein-1" class="input is-info has-background-dark has-text-grey-lighter" type="text"
-                                    placeholder="Mutation">
+                                    placeholder="Mutation (1-letter code)">
                                 <div class="help">
                                     1-letter code: <span class="is-italic">e.g.</span> p.E542K
                                 </div>
@@ -84,12 +85,13 @@
                     </div>
                     <div class="field-body">
                         <div class="field has-addons">
-                            <div class="control">
+                            <div class="control tooltip">
                                 <div class="button is-static">
                                     DNA
                                 </div>
+                                <span class="tooltiptext">Enter a mutation in CDS notation. Not used yet.</span>
                             </div>
-                            <div class="control">
+                            <div class="control tooltip">
                                 <input id="dna" class="input is-info has-background-dark has-text-grey-lighter" type="text"
                                     placeholder="Mutation">
                                 <div class="help">
@@ -118,8 +120,10 @@
                 </div>
                 <div class="field is-horizontal">
                     <div class="field-label">
-                        <label class="label has-text-grey-lighter">
+                        <label class="label has-text-grey-lighter tooltip">
                             <img class="is-24x24-" src="assets/images/db_logo_ClinVar_light_margin.png">
+                            <span class="tooltiptext">ClinVar is a freely accessible, public archive of reports of the relationships among human variations and phenotypes,
+                            with supporting evidence</span>
                         </label>
                     </div>
                     <div class="field-body">
@@ -136,8 +140,10 @@
                 </div>
                 <div class="field is-horizontal">
                     <div class="field-label">
-                        <label class="label has-text-grey-lighter">
+                        <label class="label has-text-grey-lighter tooltip">
                             <img class="is-24x24-" src="assets/images/db_logo_COSMIC_light_margin.png">
+                            <span class="tooltiptext">COSMIC, the Catalogue Of Somatic Mutations In Cancer, is the world's largest and most comprehensive resource for
+                            exploring the impact of somatic mutations in human cancer</span>
                         </label>
                     </div>
                     <div class="field-body">
@@ -154,8 +160,9 @@
                 </div>
                 <div class="field is-horizontal">
                     <div class="field-label">
-                        <label class="label has-text-grey-lighter">
+                        <label class="label has-text-grey-lighter tooltip">
                             <img class="is-24x24-" src="assets/images/db_logo_CIViC_light_margin.png">
+                            <span class="tooltiptext">CIViC is an open access, open source, community-driven web resource for Clinical Interpretation of Variants in Cancer</span>
                         </label>
                     </div>
                     <div class="field-body">
@@ -172,8 +179,9 @@
                 </div>
                 <div class="field is-horizontal">
                     <div class="field-label">
-                        <label class="label has-text-grey-lighter">
+                        <label class="label has-text-grey-lighter tooltip">
                             <img class="is-24x24-" src="assets/images/db_logo_VarSome_light.png">
+                            <span class="tooltiptext">The Human Genomic Variant Search Engine</span>
                         </label>
                     </div>
                     <div class="field-body">
@@ -190,8 +198,11 @@
                 </div>
                 <div class="field is-horizontal">
                     <div class="field-label">
-                        <label class="label has-text-grey-lighter">
+                        <label class="label has-text-grey-lighter tooltip">
                             <img class="is-24x24-" src="assets/images/db_logo_dbSNP_light_margin.png">
+                            <span class="tooltiptext">dbSNP contains human single nucleotide variations, microsatellites, and small-scale insertions and deletions along with
+                            publication, population frequency, molecular consequence, and genomic and RefSeq mapping information for both common
+                            variations and clinical mutations</span>
                         </label>
                     </div>
                     <div class="field-body">
@@ -208,8 +219,10 @@
                 </div>
                 <div class="field is-horizontal">
                     <div class="field-label">
-                        <label class="label has-text-grey-lighter">
+                        <label class="label has-text-grey-lighter tooltip">
                             <img class="is-24x24-" src="assets/images/db_logo_OncoKB_light_margin.png">
+                            <span class="tooltiptext">OncoKB is a precision oncology knowledge base and contains information about the effects and treatment implications of
+                            specific cancer gene alterations</span>
                         </label>
                     </div>
                     <div class="field-body">
@@ -230,10 +243,11 @@
                     </div>
                     <div class="field-body">
                         <div class="field">
-                            <div class="control">
+                            <div class="control tooltip">
                                 <button id="build" class="button is-info">
                                     Build queries
                                 </button>
+                                <span class="tooltiptext">Build queries for selected databases</span>
                             </div>
                         </div>
                     </div>
@@ -241,6 +255,11 @@
             </div>
         </div>
     </section>
+    <footer class="footer has-background-grey-dark has-text-grey-lighter">
+        <div class="content has-text-centered">
+            If you like to see more <span class="has-text-weight-bold">functions</span>, <span class="has-text-weight-bold">features</span> or <span class="has-text-weight-bold">databases</span> added or give other <span class="has-text-weight-bold">feedback</span>, please contact me on one of the mediums below.
+        </div>
+    </footer>
     <footer class="footer has-background-grey-dark has-text-grey-lighter">
         <div class="content has-text-centered">
             <div class="columns">

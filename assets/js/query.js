@@ -94,67 +94,80 @@ $('.input:text').keypress(function (e) {
 
 // submit query button
 $('#build').click(function(event) {
-    $('#queries').html('');
     const gene = $('#gene').val();
     const protein_3 = $('#protein-3').val();
     const protein_1 = $('#protein-1').val();
     const dna = $('#dna').val();
     const checkboxes = $('input:checked');
-    for (let i = 0; i < checkboxes.length; i++) {
-        const el = checkboxes[i];
-        $('#' + el.id).siblings('.query').html(scaffold(el.id));
-        const link = $('#' + el.id + '_a');
-        if (el.id == 'ClinVar') {
-            link.attr('href', 'https://www.ncbi.nlm.nih.gov/clinvar?term=' + gene + '[Gene Name]+AND+' + protein_3);
-            link.html(gene + '[Gene]+AND+' + protein_3);
-        }
-        if (el.id == 'COSMIC') {
-            link.attr('href', 'https://cancer.sanger.ac.uk/cosmic/search?q=' + gene + '+' + protein_1);
-            link.html(gene + '+' + protein_1);
-        }
-        if (el.id == 'CIViC') {
-            // parse JSON file
-            ajax('https://civicdb.org/api/genes/' + gene + '?identifier_type=entrez_symbol')
-                .then(function(result) {
-                    // get gene ID
-                    const res = JSON.parse(result);
-                    const geneID = res.id;
-                    var variantID = -1;
-                    if (geneID !== undefined) {
-                        // get variant ID
-                        res.variants.forEach(item => {
-                            if (item.name == protein_1.slice(2)) {
-                                variantID = item.id;
+    if (gene != '') {
+        $('#gene').removeClass('is-danger').addClass('is-info');
+        if (protein_3 != '') {
+            $('#protein-3').removeClass('is-danger').addClass('is-info');
+            $('#protein-1').removeClass('is-danger').addClass('is-info');
+            for (let i = 0; i < checkboxes.length; i++) {
+                const el = checkboxes[i];
+                $('#' + el.id).siblings('.query').html(scaffold(el.id));
+                const link = $('#' + el.id + '_a');
+                if (el.id == 'ClinVar') {
+                    link.attr('href', 'https://www.ncbi.nlm.nih.gov/clinvar?term=' + gene + '[Gene Name]+AND+' + protein_3);
+                    link.html(gene + '[Gene]+AND+' + protein_3);
+                }
+                if (el.id == 'COSMIC') {
+                    link.attr('href', 'https://cancer.sanger.ac.uk/cosmic/search?q=' + gene + '+' + protein_1);
+                    link.html(gene + '+' + protein_1);
+                }
+                if (el.id == 'CIViC') {
+                    // parse JSON file
+                    ajax('https://civicdb.org/api/genes/' + gene + '?identifier_type=entrez_symbol')
+                        .then(function(result) {
+                            // get gene ID
+                            const res = JSON.parse(result);
+                            const geneID = res.id;
+                            var variantID = -1;
+                            if (geneID !== undefined) {
+                                // get variant ID
+                                res.variants.forEach(item => {
+                                    if (item.name == protein_1.slice(2)) {
+                                        variantID = item.id;
+                                    }
+                                });
+                                if (variantID >= 0) {
+                                    link.attr('href', 'https://civicdb.org/events/genes/' + geneID + '/summary/variants/' + variantID + '/summary#variant');
+                                    link.html(geneID + '/summary/variants/' + variantID + '/summary#variant');
+                                } else {
+                                    link.attr('href', 'https://civicdb.org/events/genes/' + geneID + '/summary');
+                                    link.html(geneID + '/summary');
+                                }
+                            } else {
+                                link.attr('href', 'https://civicdb.org/search/evidence/');
+                                link.html('no results: please search manually');
                             }
+                        })
+                        .catch(function() {
+                            link.attr('href', 'https://civicdb.org/search/evidence/');
+                            link.html('no results: please search manually');
                         });
-                        if (variantID >= 0) {
-                            link.attr('href', 'https://civicdb.org/events/genes/' + geneID + '/summary/variants/' + variantID + '/summary#variant');
-                            link.html(geneID + '/summary/variants/' + variantID + '/summary#variant');
-                        } else {
-                            link.attr('href', 'https://civicdb.org/events/genes/' + geneID + '/summary');
-                            link.html(geneID + '/summary');
-                        }
-                    } else {
-                        link.attr('href', 'https://civicdb.org/search/evidence/');
-                        link.html('no results: please search manually');
-                    }
-                })
-                .catch(function() {
-                    link.attr('href', 'https://civicdb.org/search/evidence/');
-                    link.html('no results: please search manually');
-                });
+                }
+                if (el.id == 'VarSome') {
+                    link.attr('href', 'https://varsome.com/variant/hg19/' + gene + '%20' + protein_3.slice(2));
+                    link.html(gene + ' ' + protein_3.slice(2));
+                }
+                if (el.id == 'dbSNP') {
+                    link.attr('href', 'https://www.ncbi.nlm.nih.gov/snp/?term=' + gene + '[Gene Name]+AND+' + protein_3.slice(2));
+                    link.html(gene + '[Gene Name]+AND+' + protein_3.slice(2));
+                }
+                if (el.id == 'OncoKB') {
+                    link.attr('href', 'https://www.oncokb.org/gene/' + gene + '/' + protein_1.slice(2));
+                    link.html(gene + '/' + protein_1.slice(2));
+                }
+            }
+        } else {
+            $('.query').html(' &mdash; Please provide a <span class="has-text-weight-bold">mutation</span>');
+            $('#protein-3').removeClass('is-info').addClass('is-danger');
+            $('#protein-1').removeClass('is-info').addClass('is-danger');
         }
-        if (el.id == 'VarSome') {
-            link.attr('href', 'https://varsome.com/variant/hg19/' + gene + '%20' + protein_3.slice(2));
-            link.html(gene + ' ' + protein_3.slice(2));
-        }
-        if (el.id == 'dbSNP') {
-            link.attr('href', 'https://www.ncbi.nlm.nih.gov/snp/?term=' + gene + '[Gene Name]+AND+' + protein_3.slice(2));
-            link.html(gene + '[Gene Name]+AND+' + protein_3.slice(2));
-        }
-        if (el.id == 'OncoKB') {
-            link.attr('href', 'https://www.oncokb.org/gene/' + gene + '/' + protein_1.slice(2));
-            link.html(gene + '/' + protein_1.slice(2));
-        }
+    } else {
+        $('.query').html(' &mdash; Please provide a <span class="has-text-weight-bold">gene symbol</span>');
+        $('#gene').removeClass('is-info').addClass('is-danger');
     }
 })
