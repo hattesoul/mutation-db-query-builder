@@ -87,6 +87,12 @@ $('#protein-1').focusout(function () {
 
 $('.input:text').keypress(function (e) {
     if (e.which == 13) {
+        if (!$('#protein-1').val()) {
+            $('#protein-3').trigger('focusout')
+        }
+        if (!$('#protein-3').val()) {
+            $('#protein-1').trigger('focusout')
+        }
         $('#build').click();
         return false;
     }
